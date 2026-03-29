@@ -1,0 +1,46 @@
+# ARES - Package Configuration
+
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ares-pentest"
+version = "0.1.0"
+description = "AI-powered Automated Red-Teaming Evaluation System"
+authors = [{name = "ARES Team"}]
+license = {text = "Proprietary"}
+requires-python = ">=3.10"
+dependencies = [
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.31.0",
+    "sqlalchemy>=2.0.35",
+    "ollama>=0.4.1",
+    "playwright>=1.48.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.3",
+    "black>=24.0.0",
+    "ruff>=0.6.0",
+    "mypy>=1.11.0",
+]
+
+[tool.setuptools]
+package-dir = {"" = "."}
+packages = ["ares_core", "ares_scanner", "ares_mcp"]
+
+[tool.black]
+line-length = 100
+target-version = ['py310']
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]

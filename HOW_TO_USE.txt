@@ -1,0 +1,118 @@
+╔═══════════════════════════════════════════════════════════╗
+║                  ARES - How to Use                        ║
+╚═══════════════════════════════════════════════════════════╝
+
+Current Status: Backend is RUNNING on http://localhost:8000
+
+═══════════════════════════════════════════════════════════
+
+🟢 OPTION 1: Use Backend NOW (No AI)
+────────────────────────────────────────────────────────────
+Backend is already working! You can:
+  • Scan websites
+  • Use all 7 vulnerability detectors
+  • Store results in database
+  • Access API docs at http://localhost:8000/docs
+
+AI features are disabled but all scanning works.
+
+
+🔵 OPTION 2: Setup AI Model (One-time, ~10 minutes)
+────────────────────────────────────────────────────────────
+When you want AI-powered analysis:
+
+    cd /mnt/d_drive/ares
+    ./setup_ollama.sh
+
+What it does:
+  • Downloads llama3.2:3b model (~2GB)
+  • Stores in /mnt/d_drive (not your full / partition)
+  • Takes 5-10 minutes
+  • Only run once
+  • Enables AI features in future scans
+
+After this, ./START.sh will automatically use AI.
+
+
+═══════════════════════════════════════════════════════════
+
+📚 DAILY COMMANDS:
+═══════════════════════════════════════════════════════════
+
+START ARES:
+    cd /mnt/d_drive/ares
+    ./START.sh
+
+STOP ARES:
+    ./STOP.sh
+
+TEST API:
+    curl http://localhost:8000/health
+
+RUN A SCAN:
+    curl -X POST http://localhost:8000/api/scan/start \
+      -H "Content-Type: application/json" \
+      -d '{"target_url": "http://testphp.vulnweb.com"}'
+
+VIEW LOGS:
+    tail -f logs/backend.log
+    tail -f logs/ollama.log
+
+
+═══════════════════════════════════════════════════════════
+
+📁 SCRIPT DESCRIPTIONS:
+═══════════════════════════════════════════════════════════
+
+setup_ollama.sh
+  • Run ONCE when you want AI features
+  • Downloads model to /mnt/d_drive
+  • Not required for basic scanning
+
+START.sh
+  • Starts Ollama (with AI model if available)
+  • Starts Backend API on port 8000
+  • No frontend dashboard
+  • Use this every time you want to start ARES
+
+STOP.sh
+  • Stops Backend
+  • Stops Ollama
+  • Cleans up all processes
+
+test_ares.sh
+  • Runs comprehensive tests
+  • Tests health, API, and scanning
+
+
+═══════════════════════════════════════════════════════════
+
+🎯 RECOMMENDED WORKFLOW:
+═══════════════════════════════════════════════════════════
+
+TODAY:
+  1. Backend is already running ✅
+  2. Test it: curl http://localhost:8000/health
+  3. Try a scan: See "RUN A SCAN" above
+
+WHEN YOU WANT AI:
+  1. ./STOP.sh
+  2. ./setup_ollama.sh (wait 10 minutes)
+  3. ./START.sh (now with AI!)
+
+
+═══════════════════════════════════════════════════════════
+
+💾 DISK SPACE:
+═══════════════════════════════════════════════════════════
+
+/ partition:     111GB used / 125GB total (94% FULL)
+/mnt/d_drive:    19GB used / 323GB total (6% used)
+
+Ollama model:    Stores in /mnt/d_drive/ares/ollama_models
+Model size:      ~2GB (llama3.2:3b)
+
+You have plenty of space on /mnt/d_drive for the model!
+
+
+═══════════════════════════════════════════════════════════

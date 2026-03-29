@@ -1,0 +1,75 @@
+═══════════════════════════════════════════════════════════
+  ARES - Quick Start Guide
+═══════════════════════════════════════════════════════════
+
+📦 FIRST TIME SETUP (Run once):
+───────────────────────────────────────────────────────────
+To download the Ollama AI model (~2GB):
+
+    cd /mnt/d_drive/ares
+    ./setup_ollama.sh
+
+This will:
+  • Download llama3.2:3b model to /mnt/d_drive/ares/ollama_models
+  • Takes 5-10 minutes depending on your connection
+  • Only needs to be done once
+
+Note: Backend works WITHOUT the model (AI features disabled)
+
+
+🚀 DAILY USE:
+───────────────────────────────────────────────────────────
+Start ARES:
+
+    cd /mnt/d_drive/ares
+    ./START.sh
+
+This automatically:
+  1. Starts Ollama (if model exists)
+  2. Starts Backend API on http://localhost:8000
+  3. No frontend dashboard (backend only)
+
+
+🛑 STOP ARES:
+───────────────────────────────────────────────────────────
+    ./STOP.sh
+
+Stops Ollama and Backend
+
+
+📊 TEST THE API:
+───────────────────────────────────────────────────────────
+Health check:
+    curl http://localhost:8000/health
+
+Start a scan:
+    curl -X POST http://localhost:8000/api/scan/start \
+      -H "Content-Type: application/json" \
+      -d '{"target_url": "http://testphp.vulnweb.com"}'
+
+API documentation:
+    http://localhost:8000/docs
+
+
+📁 IMPORTANT FILES:
+───────────────────────────────────────────────────────────
+setup_ollama.sh    - One-time model download (run once)
+START.sh           - Start Ollama + Backend
+STOP.sh            - Stop everything
+test_ares.sh       - Run tests
+README.md          - Full documentation
+
+
+📝 LOGS:
+───────────────────────────────────────────────────────────
+Backend: tail -f logs/backend.log
+Ollama:  tail -f logs/ollama.log
+
+
+💾 DISK USAGE:
+───────────────────────────────────────────────────────────
+Ollama models stored in: /mnt/d_drive/ares/ollama_models
+Model size: ~2GB (llama3.2:3b)
+
+
+═══════════════════════════════════════════════════════════
